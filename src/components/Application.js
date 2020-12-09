@@ -96,6 +96,10 @@ const days = [
 export default function Application (props) {
   const [day, setDay] = useState("Monday");
 
+<<<<<<< HEAD
+=======
+export default function Application (props) {
+>>>>>>> 2e21730a804cc7a754cff25385bbe61e266a47a5
   return (
     <main className="layout">
       <section className="sidebar">
@@ -105,6 +109,7 @@ export default function Application (props) {
           alt="Interview Scheduler"
         />
         <hr className="sidebar__separator sidebar--centered" />
+<<<<<<< HEAD
         <nav className="sidebar__menu">
           <DayList
             days={days}
@@ -112,6 +117,9 @@ export default function Application (props) {
             setDay={setDay}
           />
         </nav>
+=======
+        <nav className="sidebar__menu"></nav>
+>>>>>>> 2e21730a804cc7a754cff25385bbe61e266a47a5
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"
