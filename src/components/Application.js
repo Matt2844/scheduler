@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import axios from 'axios';
 
 import "components/Application.js"
 import "components/Application.scss";
@@ -73,33 +75,20 @@ const appointments = [
 ];
 
 
-
-
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
-
 export default function Application (props) {
-  const [day, setDay] = useState("Monday");
+  // const [day, setDay] = useState("Monday");
+  const [days, setDays] = useState([]);
 
-<<<<<<< HEAD
-=======
-export default function Application (props) {
->>>>>>> 2e21730a804cc7a754cff25385bbe61e266a47a5
+  useEffect(() => {
+    axios.get('http://localhost:8001/api/days').then((response) => {
+      console.log('response:', response.data)
+      setDays(response.data)
+    })
+      .catch((error) => {
+        console.log('error:', error)
+      })
+  }, []);
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -109,17 +98,13 @@ export default function Application (props) {
           alt="Interview Scheduler"
         />
         <hr className="sidebar__separator sidebar--centered" />
-<<<<<<< HEAD
         <nav className="sidebar__menu">
           <DayList
             days={days}
-            day={day}
-            setDay={setDay}
+            day={days}
+            setDay={setDays}
           />
         </nav>
-=======
-        <nav className="sidebar__menu"></nav>
->>>>>>> 2e21730a804cc7a754cff25385bbe61e266a47a5
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"
