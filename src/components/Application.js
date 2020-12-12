@@ -8,6 +8,7 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment/index.js"
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors.js";
+import useVisualMode from 'hooks/useVisualMode'
 
 
 export default function Application (props) {
@@ -36,6 +37,7 @@ export default function Application (props) {
       })
   }, []);
 
+  const bookInterview = (id, interview) => console.log('bookInterview: ', id, interview);
   const interviewers = getInterviewersForDay(state, state.day);
   const appointments = getAppointmentsForDay(state, state.day).map((appointment) => (
     < Appointment
@@ -43,6 +45,8 @@ export default function Application (props) {
       {...appointment}
       time={appointment.time}
       interview={getInterview(state, appointment.interview)}
+      interviewers={interviewers}
+      bookInterview={bookInterview}
     />
   ));
 

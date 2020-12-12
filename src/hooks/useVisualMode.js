@@ -5,21 +5,21 @@ export default function useVisualMode (initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
-  // Similar to .push(). Makes a copy
+  // Similar to .push()
   const transition = (mode, replace = false) => {
     if (replace) {
       setMode(mode)
     } else {
-      setMode(mode);
       setHistory([...history, mode]);
+      setMode(mode);
     }
   }
 
-  // Similar to .pop(). All elements minus the last one, while making a copy 
+  // Similar to .pop()
   const back = () => {
     if (history.length >= 1) {
-      setMode([...mode.slice(0, mode.length - 1)]);
-      setHistory(history.slice(0, -1));
+      setHistory([...history.slice(0, history.length - 1)]);
+      setMode(mode.length - 1);
     }
   }
   return { mode, transition, back };
