@@ -30,24 +30,42 @@ const getInterviewersForDay = (state, day) => {
   return interviewers;
 };
 
-
 const getInterview = (state, interview) => {
-
   if (!interview) {
     return null;
-  } else if (interview) {
-    return {
-      student: interview.student,
-      interviewer: {
-        id: interview.interviewer,
-        name: state.interviewers[interview.interviewer].name,
-        avatar: state.interviewers[interview.interviewer].avatar
-      }
-    }
   }
-};
+  return (
 
-
-
+    interview && {
+      ...interview,
+      interviewer: state.interviewers[interview.interviewer]
+    }
+  );
+}
 
 export { getAppointmentsForDay, getInterviewersForDay, getInterview }
+
+
+// return (
+
+//   interview && {
+//     ...interview,
+//     interviewer: state.interviewers[interview.interviewer]
+//   }
+// );
+
+
+// {
+//   "id":1,
+//   "time":"12pm",
+//   "interview": {
+//     "student": "Lydia Miller-Jones",
+//     "interviewer": {
+//       "id": 1,
+//       "name": "Sylvia Palmer",
+//       "avatar": "https://i.imgur.com/LpaY82x.png"
+//     }
+//   }
+// }
+
+
