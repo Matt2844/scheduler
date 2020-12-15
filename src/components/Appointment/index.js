@@ -34,7 +34,7 @@ export default function Appointment (props) {
     props.interview ? SHOW : EMPTY
   )
 
-
+  // Saving the form data. 
   const save = (name, interviewer) => {
     const interview = {
       student: name,
@@ -69,13 +69,14 @@ export default function Appointment (props) {
 
   }
 
-
   // Cancels the interview and sets form to empty. 
   const cancelInterviewConfirmed = () => {
+
     transition(DELETE);
 
     delay(500)
       .then(destroyData(props.id))
+      .then(props.updateSpots())
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
 
@@ -87,7 +88,9 @@ export default function Appointment (props) {
   }
 
 
+
   const interviewers = [];
+
 
 
   return (

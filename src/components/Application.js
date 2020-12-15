@@ -13,13 +13,16 @@ import useVisualMode from 'hooks/useVisualMode'
 
 export default function Application (props) {
 
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {}
   });
 
+
   const setDay = (day) => setState({ ...state, day });
+
 
   // Api requests
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function Application (props) {
   }, []);
 
 
-
+  // Books interview, stores data in db.
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -57,12 +60,27 @@ export default function Application (props) {
     })
       .then((response) => {
         console.log('res:', response);
-        setState({ ...state, appointments })
+        const newDays = calculateDaySpots(state.days, appointments);
+        setState({ ...state, appointments, days: newDays });
       })
       .catch((error) => {
         console.log(error);
       });
 
+  };
+
+  const calculateDaySpotsDelete = () => {
+
+  }
+
+
+  // Returns days with the proper spots
+  const calculateDaySpots = (days, appointments) => {
+    return days.map(day => {
+      const newSpots = day.appointments.filter(appointment => appointments[appointment].interview === null);
+      const newDay = { ...day, spots: newSpots.length };
+      return newDay;
+    })
   };
 
   const appointments = getAppointmentsForDay(state, state.day).map((appointment) => {
@@ -75,6 +93,7 @@ export default function Application (props) {
         interview={getInterview(state, appointment.interview)}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        updateSpots={calculateDaySpotsDelete}
       />
     )
   });
@@ -93,6 +112,7 @@ export default function Application (props) {
           <DayList
             days={state.days}
             day={state.day}
+            appointments={state.appointments}
             setDay={setDay}
           />
         </nav>

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import classNames from 'classnames';
 import DayListItem from 'components/DayListItem.js'
+import axios from 'axios';
 
 
 export default function DayList (props) {
+
+
 
 
   return (
@@ -15,7 +18,9 @@ export default function DayList (props) {
           spots={day.spots}
           selected={day.name === props.day}
           setDay={props.setDay} />
-      ))}
+      )
+      )
+      }
     </ul>
   )
 };

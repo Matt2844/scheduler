@@ -10,7 +10,7 @@ const getAppointmentsForDay = (state, day) => {
 
   const appointments = dayFound.appointments.map(appointmentId => state.appointments
   [appointmentId]);
-
+  console.log('appointments:', appointments);
   return appointments;
 
 };
