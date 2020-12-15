@@ -18,8 +18,8 @@ export default function useVisualMode (initial) {
   // Similar to .pop()
   const back = () => {
     if (history.length >= 1) {
-      setHistory([...history.slice(0, history.length - 1)]);
-      setMode(mode.length - 1);
+      setMode(...history.slice(0, history.length - 1));
+      setHistory(history.slice(0, history.length - 1));
     }
   }
   return { mode, transition, back };

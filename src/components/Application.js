@@ -63,7 +63,6 @@ export default function Application (props) {
         console.log(error);
       });
 
-
   };
 
   const appointments = getAppointmentsForDay(state, state.day).map((appointment) => {
