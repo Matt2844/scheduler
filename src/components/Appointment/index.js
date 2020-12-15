@@ -28,7 +28,9 @@ export default function Appointment (props) {
       student: name,
       interviewer
     };
+
     transition(SAVING);
+
     setTimeout(() => {
       props.bookInterview(props.id, interview)
       transition(SHOW);
@@ -40,11 +42,12 @@ export default function Appointment (props) {
 
   const cancelInterview = () => {
     transition(CONFIRM)
-    console.log('confirm clicked');
+
   }
 
   const cancelInterviewConfirmed = () => {
     transition(DELETE);
+
     setTimeout(() => {
       transition(EMPTY);
     }, 500);
