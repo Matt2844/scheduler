@@ -8,6 +8,8 @@ import useVisualMode from "hooks/useVisualMode.js"
 import Form from "components/Appointment/Form.js"
 import Status from "components/Appointment/Status.js"
 import Confirm from "components/Appointment/Confirm.js"
+import Error from "components/Appointment/Error.js"
+import axios from "axios";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -16,12 +18,22 @@ const SAVING = "SAVING";
 const CONFIRM = "CONFIRM";
 const DELETE = "DELETE";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
+
 
 export default function Appointment (props) {
+
+  // setTimeout delay that can be used with promises.
+  const delay = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   )
+
 
   const save = (name, interviewer) => {
     const interview = {
@@ -31,13 +43,11 @@ export default function Appointment (props) {
 
     transition(SAVING);
 
-    setTimeout(() => {
-      props.bookInterview(props.id, interview)
-      transition(SHOW);
-    }, 800);
+    delay(700)
+      .then(props.bookInterview(props.id, interview))
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true));
   }
-
-  // const [interview, setInterview] = useState(props.interview || null);
 
 
   const cancelInterview = () => {
@@ -45,17 +55,37 @@ export default function Appointment (props) {
 
   }
 
+
+  // Clears the relevant appointment data from the db. 
+  const destroyData = () => {
+    const id = props.id
+    axios.delete(`http://localhost:8001/api/appointments/${id}`)
+      .then((response) => {
+        console.log('res:', response)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }
+
+
+  // Cancels the interview and sets form to empty. 
   const cancelInterviewConfirmed = () => {
     transition(DELETE);
 
-    setTimeout(() => {
-      transition(EMPTY);
-    }, 500);
-  }
+    delay(500)
+      .then(destroyData(props.id))
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true));
+
+  };
+
 
   const editInterview = () => {
     transition(EDIT);
   }
+
 
   const interviewers = [];
 
@@ -96,6 +126,8 @@ export default function Appointment (props) {
           name={props.interview.student}
           interviewer={props.interview.interviewer.id}
         />)}
+      {mode === ERROR_SAVE && (<Error message={'Error Saving!'} />)}
+      {mode === ERROR_DELETE && (<Error message={'Error Deleting!'} />)}
 
     </article>
 
