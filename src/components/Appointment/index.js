@@ -56,18 +56,7 @@ export default function Appointment (props) {
   }
 
 
-  // Clears the relevant appointment data from the db. 
-  const destroyData = () => {
-    const id = props.id
-    axios.delete(`http://localhost:8001/api/appointments/${id}`)
-      .then((response) => {
-        console.log('res:', response)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
-  }
 
   // Cancels the interview and sets form to empty. 
   const cancelInterviewConfirmed = () => {
@@ -75,7 +64,7 @@ export default function Appointment (props) {
     transition(DELETE);
 
     delay(500)
-      .then(destroyData(props.id))
+      .then(props.deleteInterviewData(props.id))
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
 

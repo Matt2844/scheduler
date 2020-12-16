@@ -70,6 +70,19 @@ export default function Application (props) {
   };
 
 
+  // Clears the relevant appointment data from the db. 
+  const deleteInterviewData = (id) => {
+    // const id = props.id
+    axios.delete(`http://localhost:8001/api/appointments/${id}`)
+      .then((response) => {
+        console.log('res:', response)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }
+
   // Returns days with the proper spots
   const calculateDaySpots = (days, appointments) => {
     return days.map(day => {
@@ -78,6 +91,8 @@ export default function Application (props) {
       return newDay;
     })
   };
+
+
 
   const appointments = getAppointmentsForDay(state, state.day).map((appointment) => {
     const interviewers = getInterviewersForDay(state, state.day);
@@ -89,6 +104,7 @@ export default function Application (props) {
         interview={getInterview(state, appointment.interview)}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        deleteInterviewData={deleteInterviewData}
       />
     )
   });
