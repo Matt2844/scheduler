@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import axios from 'axios';
 
@@ -8,10 +8,19 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment/index.js"
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors.js";
+import useApplicationData from "hooks/useApplicationData.js"
 
 
 
 export default function Application (props) {
+
+  // const {
+  //   state,
+  //   setDay,
+  //   bookInterview,
+  //   deleteInterviewData
+  // } = useApplicationData();
+
 
 
   const [state, setState] = useState({
@@ -73,8 +82,10 @@ export default function Application (props) {
   // Clears the relevant appointment data from the db. 
   const deleteInterviewData = (id) => {
     // const id = props.id
+
     axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then((response) => {
+        window.location.reload(false)
         console.log('res:', response)
       })
       .catch((error) => {
