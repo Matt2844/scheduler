@@ -8,7 +8,7 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment/index.js"
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors.js";
-import useVisualMode from 'hooks/useVisualMode'
+
 
 
 export default function Application (props) {
@@ -69,10 +69,6 @@ export default function Application (props) {
 
   };
 
-  const calculateDaySpotsDelete = () => {
-
-  }
-
 
   // Returns days with the proper spots
   const calculateDaySpots = (days, appointments) => {
@@ -93,7 +89,6 @@ export default function Application (props) {
         interview={getInterview(state, appointment.interview)}
         interviewers={interviewers}
         bookInterview={bookInterview}
-        updateSpots={calculateDaySpotsDelete}
       />
     )
   });

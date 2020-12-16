@@ -76,7 +76,6 @@ export default function Appointment (props) {
 
     delay(500)
       .then(destroyData(props.id))
-      .then(props.updateSpots())
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
 
