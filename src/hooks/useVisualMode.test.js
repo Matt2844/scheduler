@@ -43,3 +43,9 @@ test("useVisualMode should return to previous mode", () => {
   act(() => result.current.back());
   expect(result.current.mode).toBe(FIRST);
 });
+
+// Simple example of what mode/history may look like for testing. 
+
+// Mode: SECOND
+
+// History: [FIRST, SECOND]

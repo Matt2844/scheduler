@@ -49,9 +49,9 @@ export default function useApplicationData (props) {
       ...state.appointments,
       [id]: appointment
     };
-    setState({ ...state, appointments });
+    // setState({ ...state, appointments });
 
-    axios({
+    return axios({
       method: 'put',
       url: `http://localhost:8001/api/appointments/${id}`,
       data: { interview }

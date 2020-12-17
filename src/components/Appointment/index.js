@@ -42,11 +42,16 @@ export default function Appointment (props) {
     };
 
     transition(SAVING);
+    console.log(props.bookInterview);
+    props.bookInterview(props.id, interview)
+      .then(() => {
+        transition(SHOW)
+      })
 
-    delay(700)
-      .then(props.bookInterview(props.id, interview))
-      .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true));
+    // delay(700)
+    //   .then(props.bookInterview(props.id, interview))
+    //   .then(() => transition(SHOW))
+    //   .catch(() => transition(ERROR_SAVE, true));
   }
 
 
@@ -82,7 +87,7 @@ export default function Appointment (props) {
 
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && (<Empty onAdd={() => transition(CREATE)} />)}
       {mode === SHOW && (
@@ -115,10 +120,10 @@ export default function Appointment (props) {
           onSave={save}
           //These props below includes the info from SHOW. 
           name={props.interview.student}
-          interviewer={props.interview.interviewer.id}
+          interviewer={props.interview.interviewer}
         />)}
-      {mode === ERROR_SAVE && (<Error message={'Error Saving!'} />)}
-      {mode === ERROR_DELETE && (<Error message={'Error Deleting!'} />)}
+      {mode === ERROR_SAVE && (<Error message={'Error when saving!'} onClose={() => back()} />)}
+      {mode === ERROR_DELETE && (<Error message={'Error when deleting!'} onClose={() => back()} />)}
 
     </article>
 
