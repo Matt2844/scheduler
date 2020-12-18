@@ -33,40 +33,7 @@ const state = {
   }
 };
 
-const FIRST = "FIRST";
 
-test("useVisualMode should initialize with default value", () => {
-  const { result } = renderHook(() => useVisualMode(FIRST));
-
-  expect(result.current.mode).toBe(FIRST);
-});
-
-const SECOND = "SECOND";
-
-test("useVisualMode should transition to another mode", () => {
-  const { result } = renderHook(() => useVisualMode(FIRST));
-
-  act(() => result.current.transition(SECOND));
-  expect(result.current.mode).toBe(SECOND);
-});
-
-const THIRD = "THIRD";
-
-test("useVisualMode should return to previous mode", () => {
-  const { result } = renderHook(() => useVisualMode(FIRST));
-
-  act(() => result.current.transition(SECOND));
-  expect(result.current.mode).toBe(SECOND);
-
-  act(() => result.current.transition(THIRD));
-  expect(result.current.mode).toBe(THIRD);
-
-  act(() => result.current.back());
-  expect(result.current.mode).toBe(SECOND);
-
-  act(() => result.current.back());
-  expect(result.current.mode).toBe(FIRST);
-});
 
 test("getAppointmentsForDay returns an array", () => {
   const result = getAppointmentsForDay(state, "Monday");
@@ -106,20 +73,6 @@ const interviewer = {
     avatar: "https://i.imgur.com/Nmx0Qxo.png"
   }
 }
-
-test("getInterview returns an object with the interviewer data", () => {
-  const result = getInterview(state, state.appointments["3"].interview);
-  expect(result).toEqual(
-    expect.objectContaining({
-      student: expect.any(String),
-      interviewer: expect.objectContaining({
-        id: expect.any(Number),
-        name: expect.any(String),
-        avatar: expect.any(String)
-      })
-    })
-  );
-});
 
 test("getInterview returns null if no interview is booked", () => {
   const result = getInterview(state, state.appointments["2"].interview);

@@ -42,16 +42,11 @@ export default function Appointment (props) {
     };
 
     transition(SAVING);
-    console.log(props.bookInterview);
-    props.bookInterview(props.id, interview)
-      .then(() => {
-        transition(SHOW)
-      })
 
-    // delay(700)
-    //   .then(props.bookInterview(props.id, interview))
-    //   .then(() => transition(SHOW))
-    //   .catch(() => transition(ERROR_SAVE, true));
+    props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true))
+
   }
 
 
@@ -61,14 +56,13 @@ export default function Appointment (props) {
   }
 
 
-
-
-  // Cancels the interview and sets form to empty. 
+  // Cancels the interview and sets form to empty. Delay function adjusts the amount of time
+  // "Deleting..." appears on the screen for. 
   const cancelInterviewConfirmed = () => {
 
     transition(DELETE);
 
-    delay(500)
+    delay(300)
       .then(props.deleteInterviewData(props.id))
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));

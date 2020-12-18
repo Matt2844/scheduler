@@ -46,26 +46,6 @@ const getInterview = (state, interview) => {
 export { getAppointmentsForDay, getInterviewersForDay, getInterview }
 
 
-// return (
 
-//   interview && {
-//     ...interview,
-//     interviewer: state.interviewers[interview.interviewer]
-//   }
-// );
-
-
-// {
-//   "id":1,
-//   "time":"12pm",
-//   "interview": {
-//     "student": "Lydia Miller-Jones",
-//     "interviewer": {
-//       "id": 1,
-//       "name": "Sylvia Palmer",
-//       "avatar": "https://i.imgur.com/LpaY82x.png"
-//     }
-//   }
-// }
 
 
