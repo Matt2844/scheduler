@@ -62,7 +62,8 @@ export default function Application (props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section data-testid="appointment" className="schedule">{appointments}</section>
+      <section data-testid="appointment" className="schedule">{appointments}<Appointment key="last" time="5pm" /></section>
+
     </main>
   );
 }
