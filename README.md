@@ -26,6 +26,16 @@ There are more features such as, displaying the amount of spots remaining, error
 
 Install dependencies with `npm install`.
 
+## Dependencies 
+
+axios: ^0.21.0,
+classnames: ^2.2.6,
+normalize.css: ^8.0.1,
+react: ^16.9.0,
+react-dom: ^16.9.0,
+react-hooks-testing-library: ^0.6.0,
+react-scripts: 3.0.0
+
 ## Running Webpack Development Server
 
 ```sh

@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import classNames from 'classnames';
 import DayListItem from 'components/DayListItem.js'
-import axios from 'axios';
-
-
 
 export default function DayList (props) {
-
-
-
 
   return (
     <ul>

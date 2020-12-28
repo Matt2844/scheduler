@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 
 import "components/Appointment/styles.scss";
 import Header from "components/Appointment/Header.js"
@@ -9,7 +9,7 @@ import Form from "components/Appointment/Form.js"
 import Status from "components/Appointment/Status.js"
 import Confirm from "components/Appointment/Confirm.js"
 import Error from "components/Appointment/Error.js"
-import axios from "axios";
+
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -21,14 +21,12 @@ const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
-
 export default function Appointment (props) {
 
   // setTimeout delay that can be used with promises.
   const delay = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
-
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -45,16 +43,14 @@ export default function Appointment (props) {
 
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true))
+      .catch(error => transition(ERROR_SAVE, true))
 
   }
-
 
   const cancelInterview = () => {
     transition(CONFIRM)
 
   }
-
 
   // Cancels the interview and sets form to empty. Delay function adjusts the amount of time
   // "Deleting..." appears on the screen for. 
@@ -65,7 +61,7 @@ export default function Appointment (props) {
     delay(300)
       .then(props.deleteInterviewData(props.id))
       .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE, true));
+      .catch(error => transition(ERROR_DELETE, true));
 
   };
 
@@ -74,11 +70,7 @@ export default function Appointment (props) {
     transition(EDIT);
   }
 
-
-
   const interviewers = [];
-
-
 
   return (
     <article className="appointment" data-testid="appointment">

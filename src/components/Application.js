@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
-
-import axios from 'axios';
+import React from "react";
 
 import "components/Application.js"
 import "components/Application.scss";

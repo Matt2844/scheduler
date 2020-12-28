@@ -1,13 +1,9 @@
-
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 import axios from 'axios';
 
 import "components/Application.js"
 import "components/Application.scss";
-
-import Appointment from "components/Appointment/index.js"
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors.js";
 
 
 export default function useApplicationData (props) {
@@ -30,7 +26,6 @@ export default function useApplicationData (props) {
       axios.get('http://localhost:8001/api/interviewers')
     ])
       .then((all) => {
-        console.log('API all: ', all)
         setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
       })
       .catch((error) => {
@@ -56,7 +51,6 @@ export default function useApplicationData (props) {
       data: { interview }
     })
       .then((response) => {
-        console.log('res:', response);
         const newDays = calculateDaySpots(state.days, appointments);
         setState({ ...state, appointments, days: newDays });
       })

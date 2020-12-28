@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 // This function keeps track of the mode when a user clicks
 // things like "confirm, edit, day, etc..."
@@ -16,7 +15,7 @@ export default function useVisualMode (initial) {
   // Similar to .push()
   const transition = (newMode) => {
 
-    setHistory([...history, mode])
+    setHistory(prev => [...prev, mode])
     setMode(newMode)
 
   }

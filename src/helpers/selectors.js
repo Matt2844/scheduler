@@ -1,5 +1,7 @@
+// Helper functions used in Application.js
 
-
+// Gets the appointments for that day ex. function runs and shows all the appointments
+// for Monday. 
 const getAppointmentsForDay = (state, day) => {
 
   const dayFound = state.days.find(currentDay => currentDay.name === day);
@@ -15,6 +17,7 @@ const getAppointmentsForDay = (state, day) => {
 
 };
 
+// Gets the interviewers for that day. Ex. Interviewers on Monday may be different than Tuesday
 const getInterviewersForDay = (state, day) => {
 
   const dayFound = state.days.find(currentDay => currentDay.name === day);
@@ -30,6 +33,7 @@ const getInterviewersForDay = (state, day) => {
   return interviewers;
 };
 
+// Returns the interview data. 
 const getInterview = (state, interview) => {
   if (!interview) {
     return null;
