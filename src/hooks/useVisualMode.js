@@ -13,11 +13,9 @@ export default function useVisualMode (initial) {
   const [history, setHistory] = useState([]);
 
   // Similar to .push()
-  const transition = (newMode) => {
-
+  const transition = (newMode, replace = false) => {
     setHistory(prev => [...prev, mode])
     setMode(newMode)
-
   }
 
   // Similar to .pop()

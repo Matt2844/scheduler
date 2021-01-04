@@ -36,42 +36,40 @@ export default function useApplicationData (props) {
 
   // Books interview, stores data in db.
   const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: interview
-    }
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
 
+    // Error handling is done by the function in index.js. 
     return axios({
       method: 'put',
       url: `http://localhost:8001/api/appointments/${id}`,
       data: { interview }
     })
       .then((response) => {
+        console.log('then runs line 47:');
+        const appointment = {
+          ...state.appointments[id],
+          interview: interview
+        }
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment
+        };
         const newDays = calculateDaySpots(state.days, appointments);
         setState({ ...state, appointments, days: newDays });
       })
-      .catch((error) => {
-        console.log(error);
-      });
-
   };
 
 
   // Clears the relevant appointment data from the db. 
+  // Error handling is done in index.js
   const deleteInterviewData = (id) => {
     // const id = props.id
-    axios.delete(`http://localhost:8001/api/appointments/${id}`)
+    return axios({
+      method: 'delete',
+      url: (`http://localhost:8001/api/appointments/${id}`),
+    })
       .then((response) => {
         window.location.reload(false)
       })
-      .catch((error) => {
-        console.log(error);
-      });
-
   }
 
   // Returns days with the proper spots

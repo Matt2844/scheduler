@@ -35,8 +35,6 @@ export default function Application (props) {
     )
   });
 
-  // <Appointment key="last" time="5pm" />
-
   return (
     <main className="layout">
       <section className="sidebar">

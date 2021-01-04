@@ -10,7 +10,6 @@ import Status from "components/Appointment/Status.js"
 import Confirm from "components/Appointment/Confirm.js"
 import Error from "components/Appointment/Error.js"
 
-
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -42,8 +41,13 @@ export default function Appointment (props) {
     transition(SAVING);
 
     props.bookInterview(props.id, interview)
-      .then(() => transition(SHOW))
-      .catch(error => transition(ERROR_SAVE, true))
+      .then(() => {
+        transition(SHOW)
+      })
+      .catch((error) => {
+        console.log(error);
+        transition(ERROR_SAVE, true)
+      })
 
   }
 
@@ -56,14 +60,24 @@ export default function Appointment (props) {
   // "Deleting..." appears on the screen for. 
   const cancelInterviewConfirmed = () => {
 
-    transition(DELETE);
+    transition(DELETE, true);
 
-    delay(300)
-      .then(props.deleteInterviewData(props.id))
-      .then(() => transition(EMPTY))
-      .catch(error => transition(ERROR_DELETE, true));
+
+    props.deleteInterviewData(props.id)
+      .then(() => {
+        transition(EMPTY);
+      })
+      .catch((error) => {
+        console.log(error);
+        transition(ERROR_DELETE, true);
+      })
 
   };
+
+  // When the user clicks 'close' or 'X' on ERROR_DELETE
+  const handleClose = () => {
+    transition(EMPTY);
+  }
 
 
   const editInterview = () => {
@@ -109,7 +123,7 @@ export default function Appointment (props) {
           interviewer={props.interview.interviewer}
         />)}
       {mode === ERROR_SAVE && (<Error message={'Error when saving!'} onClose={() => back()} />)}
-      {mode === ERROR_DELETE && (<Error message={'Error when deleting!'} onClose={() => back()} />)}
+      {mode === ERROR_DELETE && (<Error message={'Error when deleting!'} onClose={() => handleClose()} />)}
 
     </article>
 
